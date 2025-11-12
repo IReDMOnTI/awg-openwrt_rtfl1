@@ -8,13 +8,15 @@ check_repo () {
 }
 
 route_vpn () {
+	if [ "$TUNNEL" == awg ]; then
 cat << EOF > /etc/hotplug.d/iface/30-vpnroute
 #!/bin/sh
 
 ip route add table vpn default dev awg0
 EOF
+	fi
 
-cp /etc/hotplug.d/iface/30-vpnroute /etc/hotplug.d/net/30-vpnroute
+	cp /etc/hotplug.d/iface/30-vpnroute /etc/hotplug.d/net/30-vpnroute
 }
 
 add_mark () {
@@ -151,6 +153,8 @@ configure_amneziawg_interface () {
 setup_tunnel () {
     
 echo "Setting up a tunnel for AmneziaWG"
+	
+	TUNNEL=awg
 	
 	install_awg_packages
 
