@@ -488,20 +488,6 @@ install_awg_packages () {
 }
 
 # System Details
-MODEL=$(cat /tmp/sysinfo/model)
-source /etc/os-release
-printf "\033[34;1mModel: $MODEL\033[0m\n"
-printf "\033[34;1mVersion: $OPENWRT_RELEASE\033[0m\n"
-
-VERSION_ID=$(echo $VERSION | awk -F. '{print $1}')
-
-if [ "$VERSION_ID" -ne 23 ] && [ "$VERSION_ID" -ne 24 ]; then
-    printf "\033[31;1mScript only support OpenWrt 23.05 and 24.10\033[0m\n"
-    echo "For OpenWrt 21.02 and 22.03 you can:"
-    echo "1) Use ansible https://github.com/itdoginfo/domain-routing-openwrt"
-    echo "2) Configure manually. Old manual: https://itdog.info/tochechnaya-marshrutizaciya-na-routere-s-openwrt-wireguard-i-dnscrypt/"
-    exit 1
-fi
 
 printf "\033[31;1mAll actions performed here cannot be rolled back automatically.\033[0m\n"
 
@@ -527,3 +513,4 @@ printf "\033[32;1mRestart network\033[0m\n"
 /etc/init.d/network restart
 
 printf "\033[32;1mDone\033[0m\n"
+
