@@ -147,10 +147,10 @@ install_awg_packages() {
 }
 
 configure_amneziawg_interface() {
-    INTERFACE_NAME="awg1"
-    CONFIG_NAME="amneziawg_awg1"
+    INTERFACE_NAME="awg0"
+    CONFIG_NAME="amneziawg_awg0"
     PROTO="amneziawg"
-    ZONE_NAME="awg1"
+    ZONE_NAME="awg0"
 
     read -r -p "Enter the private key (from [Interface]):"$'\n' AWG_PRIVATE_KEY_INT
 
@@ -238,28 +238,28 @@ configure_amneziawg_interface() {
     uci commit network
 
     if ! uci show firewall | grep -q "@zone.*name='${ZONE_NAME}'"; then
-        printf "\033[32;1mZone Create\033[0m\n"
-        uci add firewall zone
-        uci set firewall.@zone[-1].name=$ZONE_NAME
-        uci set firewall.@zone[-1].network=$INTERFACE_NAME
-        uci set firewall.@zone[-1].forward='REJECT'
-        uci set firewall.@zone[-1].output='ACCEPT'
-        uci set firewall.@zone[-1].input='REJECT'
-        uci set firewall.@zone[-1].masq='1'
-        uci set firewall.@zone[-1].mtu_fix='1'
-        uci set firewall.@zone[-1].family='ipv4'
-        uci commit firewall
-    fi
+         printf "\033[32;1mZone Create\033[0m\n"
+         uci add firewall zone
+         uci set firewall.@zone[-1].name=$ZONE_NAME
+         uci set firewall.@zone[-1].network=$INTERFACE_NAME
+         uci set firewall.@zone[-1].forward='REJECT'
+         uci set firewall.@zone[-1].output='ACCEPT'
+         uci set firewall.@zone[-1].input='REJECT'
+         uci set firewall.@zone[-1].masq='1'
+         uci set firewall.@zone[-1].mtu_fix='1'
+         uci set firewall.@zone[-1].family='ipv4'
+         uci commit firewall
+     fi
 
-    if ! uci show firewall | grep -q "@forwarding.*name='${ZONE_NAME}'"; then
+     if ! uci show firewall | grep -q "@forwarding.*name='${ZONE_NAME}'"; then
         printf "\033[32;1mConfigured forwarding\033[0m\n"
-        uci add firewall forwarding
-        uci set firewall.@forwarding[-1]=forwarding
-        uci set firewall.@forwarding[-1].name="${ZONE_NAME}-lan"
-        uci set firewall.@forwarding[-1].dest=${ZONE_NAME}
-        uci set firewall.@forwarding[-1].src='lan'
-        uci set firewall.@forwarding[-1].family='ipv4'
-        uci commit firewall
+         uci add firewall forwarding
+         uci set firewall.@forwarding[-1]=forwarding
+         uci set firewall.@forwarding[-1].name="${ZONE_NAME}-lan"
+         uci set firewall.@forwarding[-1].dest=${ZONE_NAME}
+         uci set firewall.@forwarding[-1].src='lan'
+         uci set firewall.@forwarding[-1].family='ipv4'
+         uci commit firewall
     fi
 }
 
