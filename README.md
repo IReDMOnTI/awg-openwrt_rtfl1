@@ -7,6 +7,7 @@
 Для запуска скрипта подключитесь к роутеру по SSH, введите команду и следуйте инструкциям на экране:
 ```
 sh <(wget -O - https://raw.githubusercontent.com/Slava-Shchipunov/awg-openwrt/refs/heads/master/amneziawg-install.sh)
+sh <(wget -O - https://raw.githubusercontent.com/IReDMOnTI/awg-openwrt_rtfl1/refs/heads/master/amneziawg-install.sh)
 ```
 
 3) Кроме того для автоматической настройки также можно использовать [скрипт](https://github.com/itdoginfo/domain-routing-openwrt) от пользователя [@itdoginfo](https://github.com/itdoginfo). Этот скрипт позволяет автоматически скачать нужные пакеты из собранных здесь и настроить [точечный обход блокировок по доменам](https://habr.com/ru/articles/767464/). Подойдёт, если у вас слабый роутер с недостаточным объёмом RAM для установки podkop-a и зависимостей
